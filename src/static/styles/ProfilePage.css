@@ -1,0 +1,19 @@
+.checkbox__container {
+  margin-right: 15px;
+}
+
+.checkbox__label {
+  padding-top: 15px;
+}
+
+.list__title {
+  padding-top: 10px;
+}
+
+.list__item {
+  margin-top: 0px;
+}
+
+.card__title {
+  margin-top: 0;
+}

@@ -1,3 +1,8 @@
+let user = null;
+chrome.storage.sync.get(["user"], result => {
+  user = result.user || null;
+});
+
 import { createReducer } from "../../utils/misc";
 import {
   LOGIN_USER_SUCCESS,
@@ -24,7 +29,7 @@ const reducerInitialState = {
   loginError: null,
   registerError: null,
 
-  user: null,
+  user: user,
   isAuthenticated: false,
   // statusText: null,
   // loading: null,
@@ -136,7 +141,7 @@ export default createReducer(reducerInitialState, {
       // user: Object.assign(user, clean(payload))
       user: Object.assign(user, {
         username: payload.userName,
-        email: payload.email,
+        email: payload.email
         // role: payload.role,
       })
     }),

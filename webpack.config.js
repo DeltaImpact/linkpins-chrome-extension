@@ -1,7 +1,8 @@
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const HtmlPlugin = require("html-webpack-plugin");
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const PAGES_PATH = "./src/pages";
 
@@ -51,6 +52,18 @@ module.exports = {
         ignore: ["pages/**/*"]
       }
     ]),
-    ...generateHtmlPlugins(["background", "popup"])
-  ]
+    ...generateHtmlPlugins(["background", "popup"]),
+    new CopyWebpackPlugin([ 
+        {from:'src/static/images',to:'images'}, 
+        {from:'src/static/styles',to:'styles'}, 
+        {from:'src/static/css',to:'css'}, 
+        {from:'src/static/js',to:'js'}, 
+     ]),
+  ],
+  externals: {
+    // global app config object
+    config: JSON.stringify({
+      apiUrl: "https://localhost:5001"
+    })
+  }
 };

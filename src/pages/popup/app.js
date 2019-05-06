@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import * as uiActions from "../../store/actions/popup/actions";
+import { authActions } from "../../store/actions/account.actions";
 import { bindActionCreators } from "redux";
 
 class App extends Component {
@@ -10,19 +11,21 @@ class App extends Component {
     super(props);
     const redirectRoute = "/";
 
-    let email = "";
-    chrome.storage.sync.get(["email"], result => {
-      this.state.email = result.email || "";
-    });
+    // let email = "";
+    // chrome.storage.sync.get(["email"], result => {
+    //   this.state.email = result.email || "";
+    // });
 
-    let password = "";
-    chrome.storage.sync.get(["password"], result => {
-      this.state.password = result.password || "";
-    });
+    // let password = "";
+    // chrome.storage.sync.get(["password"], result => {
+    //   this.state.password = result.password || "";
+    // });
 
     this.state = {
-      email: email,
-      password: password,
+    //   email: email,
+    //   password: password,
+      email: "12321",
+      password: "sdasd",
       email_error_text: null,
       password_error_text: null,
       redirectTo: redirectRoute,
@@ -69,14 +72,18 @@ class App extends Component {
       this.isDisabled();
     });
     // debugger;
-    chrome.storage.sync.set({ [type]: value }, function() {
-      console.log(type + "value is set to " + value);
-    });
+    // chrome.storage.sync.set({ [type]: value }, function() {
+    //   console.log(type + "value is set to " + value);
+    // });
   }
 
   login(e) {
     e.preventDefault();
-    debugger;
+    this.props.login(
+      this.state.email,
+      this.state.password,
+      this.state.redirectTo
+    );
   }
 
   isDisabled() {}
@@ -153,10 +160,8 @@ class App extends Component {
 
     if (this.state.previewImage == null)
       this.state.previewImage = this.state.images[0].src;
-    // debugger;
 
     return this.state.images.map((img, i) => {
-      //   debugger;
       return (
         <li
           key={i}
@@ -189,8 +194,8 @@ class App extends Component {
     } = this.props;
 
     return (
-      <div style={{ width: 200 }}>
-        <div>Background counter: {backgroundCounter}</div>
+      <div style={{ width: 400 }}>
+        {/* <div>Background counter: {backgroundCounter}</div>
         <div>
           UI counter: {uiCounter}
           <div>
@@ -198,8 +203,9 @@ class App extends Component {
             <span> </span>
             <button onClick={incrementUICounter}>+</button>
           </div>
-        </div>
-        {/* <div>
+        </div> */}
+        {JSON.stringify(this.props)}
+        <div>
           <form className="col s12">
             <div className="row">
               <div className="input-field col s12">
@@ -247,7 +253,7 @@ class App extends Component {
               </div>
             </div>
           </form>
-        </div> */}
+        </div>
         <button type="button" name="getTab" onClick={e => this.getTab(e)}>
           getTab
         </button>
@@ -296,5 +302,5 @@ export default connect(
 )(App);
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(uiActions, dispatch);
+  return bindActionCreators({ ...uiActions, ...authActions}, dispatch);
 }
