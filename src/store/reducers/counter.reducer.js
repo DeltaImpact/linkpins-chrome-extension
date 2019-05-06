@@ -27,6 +27,5 @@ const uiCounter = createCounterReducer(
   INCREMENT_UI_COUNTER,
   DECREMENT_UI_COUNTER
 );
-debugger
 
 export { backgroundCounter, uiCounter };
