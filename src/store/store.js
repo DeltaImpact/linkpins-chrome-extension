@@ -6,11 +6,11 @@ import thunk from "redux-thunk";
 //   INCREMENT_UI_COUNTER,
 //   DECREMENT_UI_COUNTER
 // } from "../../store/constants/constants";
-import rootReducer from "../../store/reducers";
+import rootReducer from "./reducers";
 import {
   incrementUICounter,
   decrementUICounter
-} from "../../store/actions/background/actions";
+} from "./actions/background/actions";
 
 // import logger from "redux-logger";
 function logger({ getState }) {
@@ -38,10 +38,16 @@ const enhancer = composeEnhancers(applyMiddleware(thunk, logger));
 const store = createStore(rootReducer, applyMiddleware(logger));
 // const store = createStore(rootReducer, enhancer);
 
-export default createBackgroundStore({
-  store,
-  actions: {
-    INCREMENT_UI_COUNTER: incrementUICounter,
-    DECREMENT_UI_COUNTER: decrementUICounter
-  }
-});
+
+// Apply middleware to proxy store
+const middleware = [logger];
+const storeWithMiddleware = applyMiddleware(store, ...middleware);
+
+import {wrapStore} from 'webext-redux';
+
+// const enhancer = composeEnhancers(
+//     applyMiddleware(thunkMiddleware,
+//         loggerMiddleware),
+// );
+
+export default wrapStore(createStore(rootReducer));

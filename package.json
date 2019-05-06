@@ -21,6 +21,7 @@
     "redux-thunk": "^2.3.0",
     "redux-webext": "^1.1.2",
     "url-loader": "^0.5.9",
+    "webext-redux": "^2.0.2",
     "webpack-chrome-extension-reloader": "^1.3.0"
   },
   "devDependencies": {

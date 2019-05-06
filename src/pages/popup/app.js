@@ -3,12 +3,13 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import * as uiActions from "../../store/actions/popup/actions";
+import { bindActionCreators } from "redux";
 
-class App extends Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     const redirectRoute = "/";
-
+    // debugger;
     let email = "";
     chrome.storage.sync.get(["email"], result => {
       this.state.email = result.email || "";
@@ -44,12 +45,12 @@ class App extends Component {
     // });
   }
 
-  static propTypes = {
-    backgroundCounter: PropTypes.number.isRequired,
-    uiCounter: PropTypes.number.isRequired,
-    incrementUICounter: PropTypes.func.isRequired,
-    decrementUICounter: PropTypes.func.isRequired
-  };
+  // static propTypes = {
+  //   backgroundCounter: PropTypes.number.isRequired,
+  //   uiCounter: PropTypes.number.isRequired,
+  //   incrementUICounter: PropTypes.func.isRequired,
+  //   decrementUICounter: PropTypes.func.isRequired
+  // };
 
   //   storageListener(changes, areaName) {
   //     if (changes.images) {
@@ -181,21 +182,21 @@ class App extends Component {
 
   render() {
     const {
-      backgroundCounter,
-      uiCounter,
-      incrementUICounter,
-      decrementUICounter
+      // backgroundCounter,
+      // uiCounter,
+      // incrementUICounter,
+      // decrementUICounter
     } = this.props;
 
     return (
       <div style={{ width: 200 }}>
-        <div>Background counter: {backgroundCounter}</div>
+        {/* <div>Background counter: {backgroundCounter}</div> */}
         <div>
-          UI counter: {uiCounter}
+          {/* UI counter: {uiCounter} */}
           <div>
-            <button onClick={decrementUICounter}>-</button>
+            {/* <button onClick={decrementUICounter}>-</button> */}
             <span> </span>
-            <button onClick={incrementUICounter}>+</button>
+            {/* <button onClick={incrementUICounter}>+</button> */}
           </div>
         </div>
         {/* <div>
@@ -284,6 +285,24 @@ class App extends Component {
 }
 
 export default connect(
-  state => state,
-  uiActions
+  mapStateToProps,
+  mapDispatchToProps,
+  // state => state,
+  // uiActions
 )(App);
+
+function mapStateToProps(state) {
+  debugger;
+  return state;
+}
+
+function mapDispatchToProps(dispatch) {
+  debugger
+  return bindActionCreators(uiActions, dispatch);
+}
+
+// const connectedAppPage = connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(App);
+// export { connectedAppPage as App };
