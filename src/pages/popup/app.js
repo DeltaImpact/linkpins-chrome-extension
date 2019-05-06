@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import * as actions from "./actions";
+// import * as userActions from "../actions";
 
 class App extends Component {
   constructor(props) {
@@ -48,7 +49,9 @@ class App extends Component {
     backgroundCounter: PropTypes.number.isRequired,
     uiCounter: PropTypes.number.isRequired,
     incrementUICounter: PropTypes.func.isRequired,
-    decrementUICounter: PropTypes.func.isRequired
+    decrementUICounter: PropTypes.func.isRequired,
+    // login: PropTypes.func.isRequired,
+    // logout: PropTypes.func.isRequired,
   };
 
   //   storageListener(changes, areaName) {
@@ -184,7 +187,9 @@ class App extends Component {
       backgroundCounter,
       uiCounter,
       incrementUICounter,
-      decrementUICounter
+      decrementUICounter,
+      // login,
+      // logout,
     } = this.props;
 
     return (
@@ -286,4 +291,5 @@ class App extends Component {
 export default connect(
   state => state,
   actions
+  // , userActions
 )(App);
