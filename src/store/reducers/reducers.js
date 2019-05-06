@@ -4,7 +4,7 @@ import {
     DECREMENT_BACKGROUND_COUNTER,
     INCREMENT_UI_COUNTER,
     DECREMENT_UI_COUNTER
-} from '../constants';
+} from '../../store/constants/constants';
 
 function createCounterReducer(increment, decrement) {
     return function (state = 0, action) {

@@ -1,5 +1,5 @@
 import store from './store';
-import {incrementBackgroundCounter, decrementBackgroundCounter} from './actions';
+import {incrementBackgroundCounter, decrementBackgroundCounter} from '../../store/actions/background/actions';
 
 // increment or decrement background counter every second
 setInterval(() => {

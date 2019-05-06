@@ -1,4 +1,4 @@
-import {INCREMENT_UI_COUNTER, DECREMENT_UI_COUNTER} from '../constants';
+import {INCREMENT_UI_COUNTER, DECREMENT_UI_COUNTER} from '../../constants/constants';
 
 export function incrementUICounter() {
     return {

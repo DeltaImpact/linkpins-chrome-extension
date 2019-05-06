@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import * as actions from "./actions";
+import * as uiActions from "../../store/actions/popup/actions";
 
 class App extends Component {
   constructor(props) {
@@ -285,5 +285,5 @@ class App extends Component {
 
 export default connect(
   state => state,
-  actions
+  uiActions
 )(App);
