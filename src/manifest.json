@@ -1,5 +1,5 @@
 {
-  "manifest_version": 1,
+  "manifest_version": 2,
   "name": "Linkpins plugin",
   "version": "1.0.0",
   "description": "Linkpins plugin",
