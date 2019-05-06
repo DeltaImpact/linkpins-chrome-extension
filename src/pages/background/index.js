@@ -1,4 +1,4 @@
-import store from './store';
+import store from '../../store/store';
 import {incrementBackgroundCounter, decrementBackgroundCounter} from '../../store/actions/background/actions';
 
 // increment or decrement background counter every second
