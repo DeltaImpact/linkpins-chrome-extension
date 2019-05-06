@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import * as uiActions from "../../store/actions/popup/actions";
+import { bindActionCreators } from "redux";
 
 class App extends Component {
   constructor(props) {
@@ -283,7 +284,17 @@ class App extends Component {
   }
 }
 
+// export default connect(
+//   state => state,
+//   uiActions
+// )(App);
+
 export default connect(
   state => state,
-  uiActions
+  mapDispatchToProps
+  // uiActions
 )(App);
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(uiActions, dispatch);
+}
