@@ -1,5 +1,4 @@
-let user = JSON.parse(localStorage.getItem("user"));
-import { createReducer } from "../utils/misc";
+import { createReducer } from "../../utils/misc";
 import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAILURE,
@@ -25,7 +24,7 @@ const reducerInitialState = {
   loginError: null,
   registerError: null,
 
-  user: user,
+  user: null,
   isAuthenticated: false,
   // statusText: null,
   // loading: null,
