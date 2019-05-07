@@ -21,13 +21,15 @@ const composeEnhancers =
 
 const enhancer = composeEnhancers(applyMiddleware(thunk, logger));
 
-const store = createStore(rootReducer, enhancer);
 // const store = createStore(rootReducer, enhancer);
+// const store = createStore(rootReducer, enhancer);
+import {wrapStore} from 'webext-redux';
+export default wrapStore(createStore(rootReducer, enhancer));
 
-export default createBackgroundStore({
-  store,
-  actions: {
-    INCREMENT_UI_COUNTER: incrementUICounter,
-    DECREMENT_UI_COUNTER: decrementUICounter
-  }
-});
+// export default createBackgroundStore({
+//   store,
+//   actions: {
+//     INCREMENT_UI_COUNTER: incrementUICounter,
+//     DECREMENT_UI_COUNTER: decrementUICounter
+//   }
+// });

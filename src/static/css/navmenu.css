@@ -1,3 +1,7 @@
+.header {
+    width: 100%;
+}
+
 .navmenu-container {
   background-color: #fff;
   display: flex;

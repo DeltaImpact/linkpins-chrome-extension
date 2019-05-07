@@ -14,7 +14,7 @@ class NavMenu extends Component {
 
   render() {
     return (
-      <div className="Header">
+      <div className="header">
         <div className="navbar-fixed">
           <div className="navmenu-container">
             <div className="left brand-logo nav__logo black-text ">

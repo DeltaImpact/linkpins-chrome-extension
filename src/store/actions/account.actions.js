@@ -7,24 +7,40 @@ export const authActions = {
   logout
 };
 
-function login(email, password) {
-  return function(dispatch) {
-    let user = {
-      email: email,
-      password: password
-    };
-    
-    store.dispatch(loginUserRequest(user));
-    return authService.login(email, password).then(
-      user => {
-        store.dispatch(loginUserSuccess(user));
-        // history.push("/");
-      },
-      error => {
-        store.dispatch(loginUserFailure(error));
-      }
-    );
+function login(email, password, dispatch) {
+  let user = {
+    email: email,
+    password: password
   };
+
+  authService.login(email, password).then(
+    user => {
+      dispatch(loginUserSuccess(user));
+    },
+    error => {
+      dispatch(loginUserFailure(error));
+    }
+  );
+
+  return loginUserRequest(user);
+
+  // return function(dispatch) {
+  //   let user = {
+  //     email: email,
+  //     password: password
+  //   };
+  //   dispatch(loginUserRequest(user));
+  //   debugger
+  //   store.dispatch(loginUserRequest(user));
+  //   return authService.login(email, password).then(
+  //     user => {
+  //       store.dispatch(loginUserSuccess(user));
+  //     },
+  //     error => {
+  //       store.dispatch(loginUserFailure(error));
+  //     }
+  //   );
+  // };
 }
 
 export function loginUserRequest(user) {

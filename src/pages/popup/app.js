@@ -1,6 +1,4 @@
-// import React, { Component, PropTypes } from "react";
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import * as uiActions from "../../store/actions/popup/actions";
 import { authActions } from "../../store/actions/account.actions";
@@ -12,16 +10,6 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    // let email = "";
-    // chrome.storage.sync.get(["email"], result => {
-    //   this.state.email = result.email || "";
-    // });
-
-    // let password = "";
-    // chrome.storage.sync.get(["password"], result => {
-    //   this.state.password = result.password || "";
-    // });
-
     this.state = {
       images: null,
       previewImage: null,
@@ -31,54 +19,14 @@ class App extends Component {
       url: null,
       texts: null
     };
-
-    // chrome.storage.onChanged.addListener(this.storageListener);
-
-    // chrome.storage.sync.get(result => {
-    //   console.log("state " + JSON.stringify(this.state));
-    //   console.log("storage " + JSON.stringify(result));
-    // });
   }
 
-  static propTypes = {
-    backgroundCounter: PropTypes.number.isRequired,
-    uiCounter: PropTypes.number.isRequired,
-    incrementUICounter: PropTypes.func.isRequired,
-    decrementUICounter: PropTypes.func.isRequired
-  };
-
-  //   storageListener(changes, areaName) {
-  //     if (changes.images) {
-  //       //   this.state.images = changes.images.newValue;
-  //       let asdascv = this.state;
-  //       debugger;
-  //       //   this.state.images = changes.images;
-  //     }
-  //   }
-
-  changeValue(e, type) {
-    const value = e.target.value;
-    const next_state = {};
-    next_state[type] = value;
-    this.setState(next_state, () => {
-      this.isDisabled();
-    });
-    // debugger;
-    // chrome.storage.sync.set({ [type]: value }, function() {
-    //   console.log(type + "value is set to " + value);
-    // });
-  }
-
-  login(e) {
-    e.preventDefault();
-    // this.props.login(
-    //   this.state.email,
-    //   this.state.password,
-    //   this.state.redirectTo
-    // );
-  }
-
-  isDisabled() {}
+  // static propTypes = {
+  //   backgroundCounter: PropTypes.number.isRequired,
+  //   uiCounter: PropTypes.number.isRequired,
+  //   incrementUICounter: PropTypes.func.isRequired,
+  //   decrementUICounter: PropTypes.func.isRequired
+  // };
 
   getTab() {
     let imageGetFunction = function(i) {
@@ -179,12 +127,13 @@ class App extends Component {
 
   render() {
     let { user } = this.props.account;
-    const {
-      backgroundCounter,
-      uiCounter,
-      incrementUICounter,
-      decrementUICounter
-    } = this.props;
+    // let user = null;
+    // const {
+    //   backgroundCounter,
+    //   uiCounter,
+    //   incrementUICounter,
+    //   decrementUICounter
+    // } = this.props;
     return (
       <div style={{ width: 400 }}>
         <NavMenu />
@@ -236,7 +185,7 @@ class App extends Component {
           </React.Fragment>
         ) : (
           <div>
-            <div className="state">{JSON.stringify(this.props)}</div>
+            {/* <div className="state">{JSON.stringify(this.props)}</div> */}
 
             <Login />
           </div>
@@ -248,8 +197,16 @@ class App extends Component {
 
 export default connect(
   state => state,
+  // mapStateToProps,
   mapDispatchToProps
 )(App);
+
+// const mapStateToProps = state => {
+//   const { account } = state;
+//   return {
+//     account
+//   };
+// };
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ ...uiActions, ...authActions }, dispatch);
