@@ -12,21 +12,7 @@ import {
   decrementUICounter
 } from "./actions/background/actions";
 
-// import logger from "redux-logger";
-function logger({ getState }) {
-  return next => action => {
-    console.log("will dispatch", action);
-
-    // Call the next dispatch method in the middleware chain.
-    const returnValue = next(action);
-
-    console.log("state after dispatch", getState());
-
-    // This will likely be the action itself, unless
-    // a middleware further in chain changed it.
-    return returnValue;
-  };
-}
+import logger from "redux-logger";
 
 const composeEnhancers =
   typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -35,7 +21,7 @@ const composeEnhancers =
 
 const enhancer = composeEnhancers(applyMiddleware(thunk, logger));
 
-const store = createStore(rootReducer, applyMiddleware(logger));
+const store = createStore(rootReducer, enhancer);
 // const store = createStore(rootReducer, enhancer);
 
 export default createBackgroundStore({

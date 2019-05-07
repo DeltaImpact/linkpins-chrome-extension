@@ -1,7 +1,7 @@
-import config from "config";
-
 import axios from "axios";
+
 import { parseJSON, processErrorResponse } from "../../utils/misc";
+import config from "config";
 
 export const authService = {
   login,
@@ -9,7 +9,6 @@ export const authService = {
 };
 
 function login(email, password) {
-  debugger
   return axios
     .post(`${config.apiUrl}/account/token`, {
       Email: email,
@@ -24,8 +23,8 @@ function login(email, password) {
             email: response.email,
             token: response.token
           };
-          chrome.storage.sync.set({ "user": user }, function() {
-            // console.log(type + "value is set to " + value);
+          chrome.storage.sync.set({ user: user }, function() {
+            console.log(type + " value is set to " + value);
           });
           // localStorage.setItem("user", JSON.stringify(user));
           return user;

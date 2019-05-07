@@ -5,11 +5,12 @@ import { connect } from "react-redux";
 import * as uiActions from "../../store/actions/popup/actions";
 import { authActions } from "../../store/actions/account.actions";
 import { bindActionCreators } from "redux";
+import { NavMenu } from "../../components/NavMenu";
+import { Login } from "../../components/Login";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    const redirectRoute = "/";
 
     // let email = "";
     // chrome.storage.sync.get(["email"], result => {
@@ -22,15 +23,6 @@ class App extends Component {
     // });
 
     this.state = {
-    //   email: email,
-    //   password: password,
-      email: "12321",
-      password: "sdasd",
-      email_error_text: null,
-      password_error_text: null,
-      redirectTo: redirectRoute,
-      // disabled: true,
-      disabled: false,
       images: null,
       previewImage: null,
       loadedImages: false,
@@ -79,11 +71,11 @@ class App extends Component {
 
   login(e) {
     e.preventDefault();
-    this.props.login(
-      this.state.email,
-      this.state.password,
-      this.state.redirectTo
-    );
+    // this.props.login(
+    //   this.state.email,
+    //   this.state.password,
+    //   this.state.redirectTo
+    // );
   }
 
   isDisabled() {}
@@ -186,16 +178,19 @@ class App extends Component {
   }
 
   render() {
+    let { user } = this.props.account;
     const {
       backgroundCounter,
       uiCounter,
       incrementUICounter,
       decrementUICounter
     } = this.props;
-
     return (
       <div style={{ width: 400 }}>
-        {/* <div>Background counter: {backgroundCounter}</div>
+        <NavMenu />
+        {user ? (
+          <React.Fragment>
+            {/* <div>Background counter: {backgroundCounter}</div>
         <div>
           UI counter: {uiCounter}
           <div>
@@ -204,78 +199,31 @@ class App extends Component {
             <button onClick={incrementUICounter}>+</button>
           </div>
         </div> */}
-        {JSON.stringify(this.props)}
-        <div>
-          <form className="col s12">
-            <div className="row">
-              <div className="input-field col s12">
-                <input
-                  id="email"
-                  type="email"
-                  value={this.state.email}
-                  onChange={e => this.changeValue(e, "email")}
-                />
-                <label
-                  htmlFor="email"
-                  className={this.state.email != null ? "active" : ""}
-                >
-                  Email
-                </label>
-              </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s12">
-                <input
-                  id="pass"
-                  type="password"
-                  value={this.state.password}
-                  onChange={e => this.changeValue(e, "password")}
-                />
-                <label
-                  htmlFor="pass"
-                  className={this.state.password != null ? "active" : ""}
-                >
-                  Password
-                </label>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col m12">
-                <div className="col s10  offset-s1">
-                  <button
-                    type="button"
-                    name="action"
-                    onClick={e => this.login(e)}
-                  >
-                    Log in
-                  </button>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-        <button type="button" name="getTab" onClick={e => this.getTab(e)}>
-          getTab
-        </button>
-        {/* {JSON.stringify(this.state.images)} */}
-        <div className="container">
-          <div className="row">
-            {this.state.images ? (
-              <div className="col m5 z-depth-3 card-panel">
-                <div className="card-content list__title">
-                  <h6 className="left-align list__item">Choose image</h6>
-                </div>
-                <ul>{this.renderImages()}</ul>
-              </div>
-            ) : (
-              <div className="col m5 z-depth-3 card-panel">
-                <div className="card-content list__title">
-                  <h6 className="left-align list__item">Load images</h6>
-                </div>
-              </div>
-            )}
+            {/* <span>{JSON.stringify(this.props)}</span> */}
+            <div>{JSON.stringify(this.props)}</div>
+            {/* <pre>{JSON.stringify(this.props)}</pre> */}
+            <button type="button" name="getTab" onClick={e => this.getTab(e)}>
+              getTab
+            </button>
+            {/* {JSON.stringify(this.state.images)} */}
+            <div className="container">
+              <div className="row">
+                {this.state.images ? (
+                  <div className="col m5 z-depth-3 card-panel">
+                    <div className="card-content list__title">
+                      <h6 className="left-align list__item">Choose image</h6>
+                    </div>
+                    <ul>{this.renderImages()}</ul>
+                  </div>
+                ) : (
+                  <div className="col m5 z-depth-3 card-panel">
+                    <div className="card-content list__title">
+                      <h6 className="left-align list__item">Load images</h6>
+                    </div>
+                  </div>
+                )}
 
-            {/* {this.props.parsing.page && (
+                {/* {this.props.parsing.page && (
               <div className="col m6 offset-m1 z-depth-3 card-panel">
                 <div className="card-content list__title">
                   <h6 className="left-align list__item">Choose description</h6>
@@ -283,24 +231,26 @@ class App extends Component {
                 <ul>{this.renderPossibleDescriptions()}</ul>
               </div>
             )} */}
+              </div>
+            </div>
+          </React.Fragment>
+        ) : (
+          <div>
+            <div className="state">{JSON.stringify(this.props)}</div>
+
+            <Login />
           </div>
-        </div>
+        )}
       </div>
     );
   }
 }
 
-// export default connect(
-//   state => state,
-//   uiActions
-// )(App);
-
 export default connect(
   state => state,
   mapDispatchToProps
-  // uiActions
 )(App);
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ ...uiActions, ...authActions}, dispatch);
+  return bindActionCreators({ ...uiActions, ...authActions }, dispatch);
 }

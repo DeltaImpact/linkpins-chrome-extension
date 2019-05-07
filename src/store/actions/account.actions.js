@@ -1,28 +1,27 @@
-import { userConstants } from "../constants";
 import { authService } from "../services";
+import { userConstants } from "../constants";
+import store from "../store";
 
 export const authActions = {
   login,
-  logout,
+  logout
 };
 
 function login(email, password) {
-  debugger
   return function(dispatch) {
     let user = {
       email: email,
       password: password
     };
-  debugger
-
-    dispatch(loginUserRequest(user));
+    
+    store.dispatch(loginUserRequest(user));
     return authService.login(email, password).then(
       user => {
-        dispatch(loginUserSuccess(user));
+        store.dispatch(loginUserSuccess(user));
         // history.push("/");
       },
       error => {
-        dispatch(loginUserFailure(error));
+        store.dispatch(loginUserFailure(error));
       }
     );
   };
@@ -54,7 +53,7 @@ export function loginUserFailure(error) {
 
 function logout() {
   return dispatch => {
-    dispatch(logoutUserExecution());
+    store.dispatch(logoutUserExecution());
     authService.logout();
     // window.location.reload();
   };

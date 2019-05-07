@@ -1,0 +1,16 @@
+body {
+  color: #313131;
+  font-family: proxima-nova, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  background: #f4f4f6;
+  text-align: center;
+}
+
+.col {
+  width: 100%;
+}
+
+.state {
+  word-wrap: break-word;
+  padding: 5px 10px;
+}
