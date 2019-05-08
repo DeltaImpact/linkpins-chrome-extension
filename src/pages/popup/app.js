@@ -135,11 +135,11 @@ class App extends Component {
     //   decrementUICounter
     // } = this.props;
     return (
-      <div style={{ width: 400 }}>
-        <NavMenu />
-        {user ? (
-          <React.Fragment>
-            {/* <div>Background counter: {backgroundCounter}</div>
+        <div >
+          <NavMenu />
+          {user ? (
+            <React.Fragment>
+              {/* <div>Background counter: {backgroundCounter}</div>
         <div>
           UI counter: {uiCounter}
           <div>
@@ -148,31 +148,31 @@ class App extends Component {
             <button onClick={incrementUICounter}>+</button>
           </div>
         </div> */}
-            {/* <span>{JSON.stringify(this.props)}</span> */}
-            <div>{JSON.stringify(this.props)}</div>
-            {/* <pre>{JSON.stringify(this.props)}</pre> */}
-            <button type="button" name="getTab" onClick={e => this.getTab(e)}>
-              getTab
-            </button>
-            {/* {JSON.stringify(this.state.images)} */}
-            <div className="container">
-              <div className="row">
-                {this.state.images ? (
-                  <div className="col m5 z-depth-3 card-panel">
-                    <div className="card-content list__title">
-                      <h6 className="left-align list__item">Choose image</h6>
+              {/* <span>{JSON.stringify(this.props)}</span> */}
+              <div>{JSON.stringify(this.props)}</div>
+              {/* <pre>{JSON.stringify(this.props)}</pre> */}
+              <button type="button" name="getTab" onClick={e => this.getTab(e)}>
+                getTab
+              </button>
+              {/* {JSON.stringify(this.state.images)} */}
+              <div className="container">
+                <div className="row">
+                  {this.state.images ? (
+                    <div className="col m5 z-depth-3 card-panel">
+                      <div className="card-content list__title">
+                        <h6 className="left-align list__item">Choose image</h6>
+                      </div>
+                      <ul>{this.renderImages()}</ul>
                     </div>
-                    <ul>{this.renderImages()}</ul>
-                  </div>
-                ) : (
-                  <div className="col m5 z-depth-3 card-panel">
-                    <div className="card-content list__title">
-                      <h6 className="left-align list__item">Load images</h6>
+                  ) : (
+                    <div className="col m5 z-depth-3 card-panel">
+                      <div className="card-content list__title">
+                        <h6 className="left-align list__item">Load images</h6>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {/* {this.props.parsing.page && (
+                  {/* {this.props.parsing.page && (
               <div className="col m6 offset-m1 z-depth-3 card-panel">
                 <div className="card-content list__title">
                   <h6 className="left-align list__item">Choose description</h6>
@@ -180,17 +180,17 @@ class App extends Component {
                 <ul>{this.renderPossibleDescriptions()}</ul>
               </div>
             )} */}
+                </div>
               </div>
-            </div>
-          </React.Fragment>
-        ) : (
-          <div>
-            {/* <div className="state">{JSON.stringify(this.props)}</div> */}
+            </React.Fragment>
+          ) : (
+            <div>
+              {/* <div className="state">{JSON.stringify(this.props)}</div> */}
 
-            <Login />
-          </div>
-        )}
-      </div>
+              <Login />
+            </div>
+          )}
+        </div>
     );
   }
 }

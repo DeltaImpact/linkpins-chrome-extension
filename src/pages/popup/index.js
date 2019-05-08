@@ -27,6 +27,7 @@ async function initApp() {
   });
 
   const mountNode = document.createElement("div");
+  mountNode.setAttribute("class", "app");
   document.body.appendChild(mountNode);
 
   const unsubscribe = store.subscribe(() => {
