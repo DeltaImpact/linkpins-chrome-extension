@@ -3,7 +3,7 @@ import {
     DECREMENT_BACKGROUND_COUNTER,
     INCREMENT_UI_COUNTER,
     DECREMENT_UI_COUNTER
-} from '../constants/constants';
+} from '../constants';
 
 export function incrementBackgroundCounter() {
     return {type: INCREMENT_BACKGROUND_COUNTER};
