@@ -1,6 +1,5 @@
 import { authService } from "../services";
 import { userConstants } from "../constants";
-import store from "../store";
 
 export const authActions = {
   login,
@@ -23,24 +22,6 @@ function login(email, password, dispatch) {
   );
 
   return loginUserRequest(user);
-
-  // return function(dispatch) {
-  //   let user = {
-  //     email: email,
-  //     password: password
-  //   };
-  //   dispatch(loginUserRequest(user));
-  //   debugger
-  //   store.dispatch(loginUserRequest(user));
-  //   return authService.login(email, password).then(
-  //     user => {
-  //       store.dispatch(loginUserSuccess(user));
-  //     },
-  //     error => {
-  //       store.dispatch(loginUserFailure(error));
-  //     }
-  //   );
-  // };
 }
 
 export function loginUserRequest(user) {
@@ -67,12 +48,9 @@ export function loginUserFailure(error) {
   };
 }
 
-function logout() {
-  return dispatch => {
-    store.dispatch(logoutUserExecution());
-    authService.logout();
-    // window.location.reload();
-  };
+function logout(dispatch) {
+  dispatch(logoutUserExecution());
+  authService.logout();
 }
 
 export function logoutUserExecution() {
