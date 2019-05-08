@@ -29,7 +29,7 @@ function login(email, password) {
           // localStorage.setItem("user", JSON.stringify(user));
           return user;
         }
-        return error;
+        return Promise.reject("No token.")
       },
       error => {
         return Promise.reject(processErrorResponse(error));

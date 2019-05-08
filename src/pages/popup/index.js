@@ -13,7 +13,8 @@ async function initApp() {
   let stylesFiles = [
     "css/materialize.min.css",
     "css/navmenu.css",
-    "css/common.css"
+    "css/common.css",
+    "css/parse.css",
   ];
 
   stylesFiles.forEach(element => {
@@ -23,8 +24,15 @@ async function initApp() {
     stylesheet.setAttribute("href", element);
     stylesheet.setAttribute("media", "screen,projection");
     document.head.appendChild(stylesheet);
-    // console.log(JSON.stringify(element));
   });
+
+  let iconsFontLink = document.createElement("link");
+  iconsFontLink.setAttribute(
+    "href",
+    "https://fonts.googleapis.com/icon?family=Material+Icons"
+  );
+  iconsFontLink.setAttribute("rel", "stylesheet");
+  document.head.appendChild(iconsFontLink);
 
   const mountNode = document.createElement("div");
   mountNode.setAttribute("class", "app");

@@ -10,7 +10,6 @@ class NavMenuRight extends Component {
   
   logout(e) {
     e.preventDefault();
-    debugger
     this.props.dispatch(
       authActions.logout()
     );

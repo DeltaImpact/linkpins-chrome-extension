@@ -29,8 +29,6 @@ class Login extends Component {
 
   login(e) {
     e.preventDefault();
-    debugger
-
     this.props.dispatch(
       authActions.login(
         this.state.email,

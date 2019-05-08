@@ -1,0 +1,20 @@
+.parse .tabs .tab {
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+  text-transform: none;
+}
+
+.parse .tabs .tab:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.parse .tabs .active {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.parse .tabs .active:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
