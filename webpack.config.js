@@ -17,6 +17,7 @@ function generateHtmlPlugins(items) {
 }
 
 module.exports = {
+  devtool: 'cheap-module-source-map',
   entry: {
     background: ["babel-polyfill", `${PAGES_PATH}/background`],
     popup: ["babel-polyfill", `${PAGES_PATH}/popup`]
