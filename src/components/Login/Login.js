@@ -2,18 +2,15 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import React, { Component } from "react";
 
-import { authActions } from "../../store/actions/account.actions";
-import * as uiActions from "../../store/actions/popup/actions";
-import store from "../../store/store";
+import { authActions } from "../../store/actions";
 import { validateEmail, renderError } from "../../utils/misc";
-
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "12321",
-      password: "sdasd",
+      email: "user123@yandex.ru",
+      password: "123123",
       email_error_text: null,
       password_error_text: null,
       // disabled: true,
@@ -28,24 +25,12 @@ class Login extends Component {
     this.setState(next_state, () => {
       this.isDisabled();
     });
-    // debugger;
-    // chrome.storage.sync.set({ [type]: value }, function() {
-    //   console.log(type + "value is set to " + value);
-    // });
-  }
-  handleLogout(e) {
-    e.preventDefault();
   }
 
   login(e) {
     e.preventDefault();
-    // debugger;
-    // let asd = store;
+    debugger
 
-    // debugger;
-    // this.props.dispatch({
-    //   type: 'ADD_COUNT'
-    // });
     this.props.dispatch(
       authActions.login(
         this.state.email,
@@ -53,17 +38,10 @@ class Login extends Component {
         this.props.dispatch
       )
     );
-    // store.dispatch(
-    //   authActions.login(this.state.email, this.state.password, this.state.redirectTo)
-    // );
-    // this.props.login(
-    //   this.state.email,
-    //   this.state.password,
-    //   this.state.redirectTo
-    // );
   }
 
   isDisabled() {}
+
   render() {
     return (
       <div className="container">
@@ -144,13 +122,7 @@ function mapStateToProps(state) {
   };
 }
 
-// function mapDispatchToProps(dispatch) {
-//   debugger
-//   return bindActionCreators({ ...uiActions, ...authActions }, dispatch);
-// }
-
 const connectedNavMenuComponent = connect(
   mapStateToProps
-  // mapDispatchToProps
 )(Login);
 export { connectedNavMenuComponent as Login };

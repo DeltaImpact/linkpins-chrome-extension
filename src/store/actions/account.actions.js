@@ -48,9 +48,9 @@ export function loginUserFailure(error) {
   };
 }
 
-function logout(dispatch) {
-  dispatch(logoutUserExecution());
+function logout() {
   authService.logout();
+  return logoutUserExecution();
 }
 
 export function logoutUserExecution() {

@@ -13,6 +13,14 @@
   "background": {
     "page": "pages/background.html"
   },
-  "permissions": ["storage", "tabs", "activeTab", "<all_urls>"],
+  "permissions": [
+    "storage",
+    "tabs",
+    "activeTab",
+    "<all_urls>",
+    "file://*/*",
+    "http://*/*",
+    "https://*/*"
+  ],
   "web_accessible_resources": ["static/*", "static/css/*.css"]
 }

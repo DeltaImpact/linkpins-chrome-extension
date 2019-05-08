@@ -24,7 +24,7 @@ function login(email, password) {
             token: response.token
           };
           chrome.storage.sync.set({ user: user }, function() {
-            console.log(type + " value is set to " + value);
+            console.log("user value is set to " + user);
           });
           // localStorage.setItem("user", JSON.stringify(user));
           return user;

@@ -1,77 +1,43 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-// import { authActions } from "../../actions";
+
+import { authActions } from "../../store/actions";
 
 class NavMenuRight extends Component {
   constructor(props) {
     super(props);
-    // this.handleLogout = this.handleLogout.bind(this);
   }
-
-  handleLogout(e) {
+  
+  logout(e) {
     e.preventDefault();
-    // this.props.dispatch(authActions.logout());
+    debugger
+    this.props.dispatch(
+      authActions.logout()
+    );
   }
 
   render() {
     let { user } = this.props.account;
-    //   topbarRight = (
-    //     <Fragment>
-    //       <li
-    //       // className={
-    //       //   this.props.history.location.pathname == "/parse" ? "active" : ""
-    //       // }
-    //       >
-    //         <div className="black-text">parse</div>
-    //       </li>
-    //       <li
-    //       // className={
-    //       //   this.props.history.location.pathname.startsWith("/profile")
-    //       //     ? "active"
-    //       //     : ""
-    //       // }
-    //       >
-    //         <div className="pagenav__option--inline black-text">
-    //           <i className="large material-icons">perm_identity</i>
-    //           {/* {user.username} */}
-    //         </div>
-    //       </li>
-    //       <li
-    //       // className={
-    //       //   this.props.history.location.pathname == "/settings"
-    //       //     ? "active"
-    //       //     : ""
-    //       // }
-    //       >
-    //         <div className="pagenav__option--inline black-text">
-    //           <i className="large material-icons">settings</i>
-    //         </div>
-    //       </li>
-    //       <li>
-    //         <div
-    //           className="black-text"
-    //           //  onClick={this.handleLogout}
-    //         >
-    //           logout
-    //         </div>
-    //       </li>
-    //     </Fragment>
-    //   );
-
-    return (
+    return user ? (
       <ul className="navmenu-right">
-        {user ? (
-          "asdasd"
-        ) : (
-          <li
-            className="active"
-            // className={
-            //   this.props.history.location.pathname == "/login" ? "active" : ""
-            // }
+        <li className="active">
+          <div
+            className="black-text"
           >
-            <div className="black-text ">login</div>
-          </li>
-        )}
+            parse
+          </div>
+        </li>
+        <li>
+          <div className="black-text" onClick={e => this.logout(e)}>
+            logout
+          </div>
+        </li>
+      </ul>
+    ) : (
+      <ul className="navmenu-right">
+        <li className="active">
+          <div className="black-text ">login</div>
+        </li>
       </ul>
     );
   }

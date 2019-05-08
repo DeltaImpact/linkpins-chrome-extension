@@ -138,19 +138,8 @@ class App extends Component {
         <div >
           <NavMenu />
           {user ? (
-            <React.Fragment>
-              {/* <div>Background counter: {backgroundCounter}</div>
-        <div>
-          UI counter: {uiCounter}
-          <div>
-            <button onClick={decrementUICounter}>-</button>
-            <span> </span>
-            <button onClick={incrementUICounter}>+</button>
-          </div>
-        </div> */}
-              {/* <span>{JSON.stringify(this.props)}</span> */}
+            <div>
               <div>{JSON.stringify(this.props)}</div>
-              {/* <pre>{JSON.stringify(this.props)}</pre> */}
               <button type="button" name="getTab" onClick={e => this.getTab(e)}>
                 getTab
               </button>
@@ -182,7 +171,7 @@ class App extends Component {
             )} */}
                 </div>
               </div>
-            </React.Fragment>
+            </div>
           ) : (
             <div>
               {/* <div className="state">{JSON.stringify(this.props)}</div> */}
