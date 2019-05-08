@@ -2,7 +2,7 @@ const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const HtmlPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const PAGES_PATH = "./src/pages";
 
@@ -53,12 +53,11 @@ module.exports = {
       }
     ]),
     ...generateHtmlPlugins(["background", "popup"]),
-    new CopyWebpackPlugin([ 
-        {from:'src/static/images',to:'images'}, 
-        {from:'src/static/styles',to:'styles'}, 
-        {from:'src/static/css',to:'css'}, 
-        {from:'src/static/js',to:'js'}, 
-     ]),
+    new CopyWebpackPlugin([
+      { from: "src/static/images", to: "images" },
+      { from: "src/static/styles", to: "styles" },
+      { from: "src/static/css", to: "css" }
+    ])
   ],
   externals: {
     // global app config object
