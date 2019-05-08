@@ -1,32 +1,16 @@
-// import React, { Component, PropTypes } from "react";
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import * as actions from "./actions";
+import * as uiActions from "../../store/actions/popup/actions";
+import { authActions } from "../../store/actions/account.actions";
+import { bindActionCreators } from "redux";
+import { NavMenu } from "../../components/NavMenu";
+import { Login } from "../../components/Login";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    const redirectRoute = "/";
-
-    let email = "";
-    chrome.storage.sync.get(["email"], result => {
-      this.state.email = result.email || "";
-    });
-
-    let password = "";
-    chrome.storage.sync.get(["password"], result => {
-      this.state.password = result.password || "";
-    });
 
     this.state = {
-      email: email,
-      password: password,
-      email_error_text: null,
-      password_error_text: null,
-      redirectTo: redirectRoute,
-      // disabled: true,
-      disabled: false,
       images: null,
       previewImage: null,
       loadedImages: false,
@@ -35,50 +19,14 @@ class App extends Component {
       url: null,
       texts: null
     };
-
-    // chrome.storage.onChanged.addListener(this.storageListener);
-
-    // chrome.storage.sync.get(result => {
-    //   console.log("state " + JSON.stringify(this.state));
-    //   console.log("storage " + JSON.stringify(result));
-    // });
   }
 
-  static propTypes = {
-    backgroundCounter: PropTypes.number.isRequired,
-    uiCounter: PropTypes.number.isRequired,
-    incrementUICounter: PropTypes.func.isRequired,
-    decrementUICounter: PropTypes.func.isRequired
-  };
-
-  //   storageListener(changes, areaName) {
-  //     if (changes.images) {
-  //       //   this.state.images = changes.images.newValue;
-  //       let asdascv = this.state;
-  //       debugger;
-  //       //   this.state.images = changes.images;
-  //     }
-  //   }
-
-  changeValue(e, type) {
-    const value = e.target.value;
-    const next_state = {};
-    next_state[type] = value;
-    this.setState(next_state, () => {
-      this.isDisabled();
-    });
-    // debugger;
-    chrome.storage.sync.set({ [type]: value }, function() {
-      console.log(type + "value is set to " + value);
-    });
-  }
-
-  login(e) {
-    e.preventDefault();
-    debugger;
-  }
-
-  isDisabled() {}
+  // static propTypes = {
+  //   backgroundCounter: PropTypes.number.isRequired,
+  //   uiCounter: PropTypes.number.isRequired,
+  //   incrementUICounter: PropTypes.func.isRequired,
+  //   decrementUICounter: PropTypes.func.isRequired
+  // };
 
   getTab() {
     let imageGetFunction = function(i) {
@@ -152,10 +100,8 @@ class App extends Component {
 
     if (this.state.previewImage == null)
       this.state.previewImage = this.state.images[0].src;
-    // debugger;
 
     return this.state.images.map((img, i) => {
-      //   debugger;
       return (
         <li
           key={i}
@@ -180,95 +126,42 @@ class App extends Component {
   }
 
   render() {
-    const {
-      backgroundCounter,
-      uiCounter,
-      incrementUICounter,
-      decrementUICounter
-    } = this.props;
-
+    let { user } = this.props.account;
+    // let user = null;
+    // const {
+    //   backgroundCounter,
+    //   uiCounter,
+    //   incrementUICounter,
+    //   decrementUICounter
+    // } = this.props;
     return (
-      <div style={{ width: 200 }}>
-        <div>Background counter: {backgroundCounter}</div>
-        <div>
-          UI counter: {uiCounter}
-          <div>
-            <button onClick={decrementUICounter}>-</button>
-            <span> </span>
-            <button onClick={incrementUICounter}>+</button>
-          </div>
-        </div>
-        {/* <div>
-          <form className="col s12">
-            <div className="row">
-              <div className="input-field col s12">
-                <input
-                  id="email"
-                  type="email"
-                  value={this.state.email}
-                  onChange={e => this.changeValue(e, "email")}
-                />
-                <label
-                  htmlFor="email"
-                  className={this.state.email != null ? "active" : ""}
-                >
-                  Email
-                </label>
-              </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s12">
-                <input
-                  id="pass"
-                  type="password"
-                  value={this.state.password}
-                  onChange={e => this.changeValue(e, "password")}
-                />
-                <label
-                  htmlFor="pass"
-                  className={this.state.password != null ? "active" : ""}
-                >
-                  Password
-                </label>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col m12">
-                <div className="col s10  offset-s1">
-                  <button
-                    type="button"
-                    name="action"
-                    onClick={e => this.login(e)}
-                  >
-                    Log in
-                  </button>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div> */}
-        <button type="button" name="getTab" onClick={e => this.getTab(e)}>
-          getTab
-        </button>
-        {/* {JSON.stringify(this.state.images)} */}
-        <div className="container">
-          <div className="row">
-            {this.state.images ? (
-              <div className="col m5 z-depth-3 card-panel">
-                <div className="card-content list__title">
-                  <h6 className="left-align list__item">Choose image</h6>
-                </div>
-                <ul>{this.renderImages()}</ul>
-              </div>
-            ) : (
-              <div className="col m5 z-depth-3 card-panel">
-                <div className="card-content list__title">
-                  <h6 className="left-align list__item">Load images</h6>
-                </div>
-              </div>
-            )}
+        <div >
+          <NavMenu />
+          {user ? (
+            <div>
+              <div>{JSON.stringify(this.props)}</div>
+              <button type="button" name="getTab" onClick={e => this.getTab(e)}>
+                getTab
+              </button>
+              {/* {JSON.stringify(this.state.images)} */}
+              <div className="container">
+                <div className="row">
+                  {this.state.images ? (
+                    <div className="col m5 z-depth-3 card-panel">
+                      <div className="card-content list__title">
+                        <h6 className="left-align list__item">Choose image</h6>
+                      </div>
+                      <ul>{this.renderImages()}</ul>
+                    </div>
+                  ) : (
+                    <div className="col m5 z-depth-3 card-panel">
+                      <div className="card-content list__title">
+                        <h6 className="left-align list__item">Load images</h6>
+                      </div>
+                    </div>
+                  )}
 
-            {/* {this.props.parsing.page && (
+                  {/* {this.props.parsing.page && (
               <div className="col m6 offset-m1 z-depth-3 card-panel">
                 <div className="card-content list__title">
                   <h6 className="left-align list__item">Choose description</h6>
@@ -276,14 +169,34 @@ class App extends Component {
                 <ul>{this.renderPossibleDescriptions()}</ul>
               </div>
             )} */}
-          </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div>
+              {/* <div className="state">{JSON.stringify(this.props)}</div> */}
+
+              <Login />
+            </div>
+          )}
         </div>
-      </div>
     );
   }
 }
 
 export default connect(
   state => state,
-  actions
+  // mapStateToProps,
+  mapDispatchToProps
 )(App);
+
+// const mapStateToProps = state => {
+//   const { account } = state;
+//   return {
+//     account
+//   };
+// };
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ ...uiActions, ...authActions }, dispatch);
+}

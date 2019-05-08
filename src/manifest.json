@@ -21,5 +21,6 @@
     "file://*/*",
     "http://*/*",
     "https://*/*"
-  ]
+  ],
+  "web_accessible_resources": ["static/*", "static/css/*.css"]
 }

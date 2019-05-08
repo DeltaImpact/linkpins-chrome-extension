@@ -1,10 +1,10 @@
-import store from './store';
-import {incrementBackgroundCounter, decrementBackgroundCounter} from './actions';
+import store from '../../store/store';
+import {incrementBackgroundCounter, decrementBackgroundCounter} from '../../store/actions/background/actions';
 
 // increment or decrement background counter every second
-setInterval(() => {
-    store.dispatch(Math.random() >= 0.5 ?
-        incrementBackgroundCounter() :
-        decrementBackgroundCounter()
-    );
-}, 1000);
+// setInterval(() => {
+    // store.dispatch(Math.random() >= 0.5 ?
+    //     incrementBackgroundCounter() :
+    //     decrementBackgroundCounter()
+    // );
+// }, 1000);
