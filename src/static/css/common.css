@@ -37,7 +37,7 @@ body {
 }
 
 .pin-content:hover {
-  border: 3px solid cadetblue !important;
+  border: inset 3px cadetblue !important;
   /* padding: 5px; */
 }
 
@@ -72,8 +72,8 @@ body {
 }
 
 .square-container:hover .square {
-  -webkit-transform: scale(0.9);
-  transform: scale(0.9);
+  /* -webkit-transform: scale(0.9);
+  transform: scale(0.9); */
   cursor: pointer;
   -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23),
     0 3px 10px rgba(0, 0, 0, 0.16);
@@ -85,9 +85,9 @@ body {
   vertical-align: middle;
 }
 
-.square-active {
-  -webkit-transform: scale(0.9);
-  transform: scale(0.9);
+.square-container-active .square {
+  /* -webkit-transform: scale(0.9);
+  transform: scale(0.9); */
   -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23),
     0 3px 10px rgba(0, 0, 0, 0.16);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
@@ -102,7 +102,7 @@ body {
 }
 
 .description__container--active {
-  border: 3px solid cadetblue !important;
+  border: inset 3px cadetblue !important;
   padding: 5px;
 }
 
@@ -147,12 +147,12 @@ body {
   cursor: pointer;
   border-radius: 50%;
   background-color: #f4f4f6;
-  border: 5px solid #f4f4f6;
+  border: inset 5px #f4f4f6;
   margin-left: 6px;
 }
 
 .board__card__container--active {
-  border: 3px solid cadetblue !important;
+  border: inset 3px cadetblue !important;
   padding: 5px;
 }
 
