@@ -42,7 +42,10 @@ function parse(dispatch) {
             let result = {};
             result.title = tabs[0].title;
             result.url = tabs[0].url;
-            result.images = [{ src: tabs[0].favIconUrl }, ...results[0]];
+            result.images = [
+              { src: tabs[0].favIconUrl },
+              ...results[0].filter(e => e.src !== "")
+            ];
             dispatch(parseImagesSuccess(result));
           }
         }
@@ -62,7 +65,7 @@ function parse(dispatch) {
             var elements = results[0]
               .split("\n")
               .map(e => e.trim())
-              .filter(e => e.length > 80);
+              .filter(e => e.length > 50);
             let result = {};
             result.texts = elements;
             dispatch(parseTextsSuccess(result));
@@ -89,11 +92,11 @@ export function parseImagesSuccess(payload) {
 }
 
 export function parseTextsSuccess(payload) {
-    return {
-      type: parseConstants.PARSE_TEXTS_SUCCESS,
-      payload: payload
-    };
-  }
+  return {
+    type: parseConstants.PARSE_TEXTS_SUCCESS,
+    payload: payload
+  };
+}
 
 export function parseImagesFailure(error) {
   return {
@@ -103,8 +106,8 @@ export function parseImagesFailure(error) {
 }
 
 export function parseTextsFailure(error) {
-    return {
-      type: parseConstants.PARSE_TEXTS_FAILURE,
-      payload: error
-    };
-  }
+  return {
+    type: parseConstants.PARSE_TEXTS_FAILURE,
+    payload: error
+  };
+}
