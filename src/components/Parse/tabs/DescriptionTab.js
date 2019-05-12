@@ -20,7 +20,7 @@ class DescriptionTab extends Component {
             className={liClass}
             onClick={() => this.props.chooseDescription(text)}
           >
-            <div className={this.props.previewDescription == text ? "" : ""}>
+            <div className="description">
               {text}
             </div>
           </li>
@@ -44,7 +44,7 @@ class DescriptionTab extends Component {
         {this.props.error && (
           <div className="error--container">
             <div className="error error--text alert alert-info">
-              {this.props.parse.error}
+              {this.props.error}
             </div>
           </div>
         )}

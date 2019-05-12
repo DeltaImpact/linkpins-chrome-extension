@@ -35,7 +35,7 @@ class ImageTab extends Component {
         {this.props.error && (
           <div className="error--container">
             <div className="error error--text alert alert-info">
-              {this.props.parse.error}
+              {this.props.error}
             </div>
           </div>
         )}
