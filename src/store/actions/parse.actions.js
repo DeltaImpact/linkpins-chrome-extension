@@ -38,13 +38,17 @@ function parse(dispatch) {
           } else if (typeof results[0] === "undefined") {
             dispatch(parseImagesFailure("Couldn't find what we wanted"));
           } else {
-            //   console.log("Loaded images: " + results[0].length);
             let result = {};
             result.title = tabs[0].title;
             result.url = tabs[0].url;
             result.images = [
               { src: tabs[0].favIconUrl },
-              ...results[0].filter(e => e.src !== "")
+              ...results[0]
+                .filter(e => e.src !== "")
+                .filter(
+                  (thing, index, self) =>
+                    index === self.findIndex(t => t.src === thing.src)
+                )
             ];
             dispatch(parseImagesSuccess(result));
           }
@@ -65,7 +69,10 @@ function parse(dispatch) {
             var elements = results[0]
               .split("\n")
               .map(e => e.trim())
-              .filter(e => e.length > 50);
+              .filter(e => e.length > 50)
+              .filter(function(value, index, self) {
+                return self.indexOf(value) === index;
+              });
             let result = {};
             result.texts = elements;
             dispatch(parseTextsSuccess(result));
