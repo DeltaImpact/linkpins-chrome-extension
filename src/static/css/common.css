@@ -33,12 +33,16 @@ body {
 }
 
 .pin-content {
+  /* padding: 3px; */
   text-align: left;
+  cursor: pointer;
 }
 
 .pin-content:hover {
-  border: inset 3px cadetblue !important;
+  /* padding: 7px 17px 7px 36px; */
+  /* border: inset 3px cadetblue !important; */
   /* padding: 5px; */
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 .error {
@@ -72,8 +76,13 @@ body {
 }
 
 .square-container:hover .square {
-  /* -webkit-transform: scale(0.9);
-  transform: scale(0.9); */
+  cursor: pointer;
+  -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23),
+    0 3px 10px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
+}
+
+.description__container:hover {
   cursor: pointer;
   -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23),
     0 3px 10px rgba(0, 0, 0, 0.16);
@@ -81,11 +90,20 @@ body {
 }
 
 .square {
+  padding: 3px;
   width: 100%;
   vertical-align: middle;
 }
 
+.description {
+  /* border: inset 5px cadetblue !important;
+  padding: 0; */
+  padding: 3px;
+}
+
 .square-container-active .square {
+  padding: 0;
+  border: inset 3px cadetblue !important;
   /* -webkit-transform: scale(0.9);
   transform: scale(0.9); */
   -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23),
@@ -94,20 +112,9 @@ body {
   background-color: #fff;
 }
 
-.description__container:hover {
-  -webkit-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23),
-    0 3px 10px rgba(0, 0, 0, 0.16);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.23), 0 3px 10px rgba(0, 0, 0, 0.16);
-  cursor: pointer;
-}
-
-.description__container--active {
+.description__container--active .description {
+  padding: 0;
   border: inset 3px cadetblue !important;
-  padding: 5px;
-}
-
-.description__container {
-  padding: 8px;
 }
 
 .tab__container--active {

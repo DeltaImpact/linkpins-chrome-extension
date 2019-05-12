@@ -4,6 +4,7 @@ import React, { Component } from "react";
 
 import { parseActions, boardActions } from "../../store/actions";
 import { PinCard } from "../PinCard";
+import { BoardCard } from "../BoardCard";
 import { validateEmail, renderError } from "../../utils/misc";
 import { ImageTab } from "./tabs/ImageTab";
 import { DescriptionTab } from "./tabs/DescriptionTab";
@@ -100,7 +101,8 @@ class Parse extends Component {
 
   renderBoards() {
     return this.props.board.boards.map((board, i) => {
-      return this.renderBoard(board);
+      return <BoardCard board={board} />;
+      //   return this.renderBoard(board);
     });
   }
 
@@ -138,7 +140,7 @@ class Parse extends Component {
 
   chooseDescription = text => {
     this.setState({
-        previewDescription: text
+      previewDescription: text
     });
   };
 
@@ -226,7 +228,45 @@ class Parse extends Component {
               <div className="card-content list__title">
                 <h6 className="left-align list__item">Save to board</h6>
               </div>
-              <ul>{this.renderBoards()}</ul>
+              <ul className="collection ">
+                {/* <li class="collection-item avatar pin-content board__card">
+                  <div class="board__card__content col m12">
+                    <div>
+                      <a href="/pin/10004">
+                        <img
+                          src="https://lorempixel.com/100/190/nature/6"
+                          alt=""
+                          class="circle"
+                        />
+                        <div class="title board__card__text--short">
+                          Cards - Materialize
+                        </div>
+                        <p class="board__card__text--short">
+                          Cards are a convenient means of displaying content
+                          composed of different types of objects. They’re also
+                          well-suited for presenting similar objects whose size
+                          or supported actions can vary considerably, like
+                          photos with captions of variable length.
+                        </p>
+                      </a>
+                      <a href="https://materializecss.com/cards.html" class="">
+                        <span class="board__misc board__card__text--short">
+                          https://materializecss.com/cards.html
+                        </span>
+                      </a>
+                      <div class="board__misc">
+                        <div class="board__misc">
+                          <span class="board__misc__item--time">
+                            Last change 4 months
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li> */}
+
+                {this.renderBoards()}
+              </ul>
             </div>
           )}
         </div>
