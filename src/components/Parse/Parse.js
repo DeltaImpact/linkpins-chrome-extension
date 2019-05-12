@@ -3,7 +3,10 @@ import { connect } from "react-redux";
 import React, { Component } from "react";
 
 import { parseActions, boardActions } from "../../store/actions";
+import { PinCard } from "../PinCard";
 import { validateEmail, renderError } from "../../utils/misc";
+import { ImageTab } from "./tabs/ImageTab";
+import { DescriptionTab } from "./tabs/DescriptionTab";
 
 class Parse extends Component {
   constructor(props) {
@@ -15,7 +18,10 @@ class Parse extends Component {
       email_error_text: null,
       password_error_text: null,
       // disabled: true,
-      disabled: false
+      disabled: false,
+      previewTitle: null,
+      previewImage: null,
+      previewDescription: null
     };
   }
 
@@ -30,7 +36,6 @@ class Parse extends Component {
 
   login(e) {
     e.preventDefault();
-    debugger;
 
     this.props.dispatch(
       authActions.login(
@@ -50,57 +55,105 @@ class Parse extends Component {
 
   parse(e) {
     e.preventDefault();
+
+    this.state.previewImage = null;
+    this.state.previewTitle = null;
+    this.state.previewDescription = null;
+
     this.props.dispatch(parseActions.parse(this.props.dispatch));
-
-    // this.state.previewImage = null;
-    // this.state.previewTitle = null;
-    // this.state.previewDescription = null;
-
-    // this.props.parse(this.state.url, this.state.redirectTo);
   }
 
   setTab(tabName) {
-    console.log(1, this.state.currentTab, tabName);
     this.setState({ currentTab: tabName });
-    this.state.currentTab = tabName;
-    console.log(2, this.state.currentTab, tabName);
   }
 
-  renderImages() {
-    // if (this.state.previewImage == null)
-    //   this.state.previewImage = this.props.parsing.page.images[0];
-    // return this.props.parsing.page.images.map((img, i) => {
-    //   return (
-    //     <li
-    //       key={i}
-    //       className={
-    //         this.state.previewImage == img
-    //           ? "square-container square-container-active"
-    //           : "square-container"
-    //       }
-    //       onClick={() => this.chooseImage(img)}
-    //     >
-    //       <img
-    //         src={img}
-    //         className={
-    //           this.state.previewImage == img ? "square square-active" : "square"
-    //         }
-    //       />
-    //     </li>
-    //   );
-    // });
-  }
-
-  chooseImage(index) {
-    this.setState({
-      previewImage: index
+  renderDescriptions() {
+    if (this.state.previewDescription == null)
+      this.state.previewDescription = this.props.parse.texts[0];
+    return this.props.parse.texts.map((text, i) => {
+      return (
+        <div key={i}>
+          <li
+            key={i}
+            className={
+              this.state.previewDescription == text
+                ? "description__container--active description__container"
+                : "description__container"
+            }
+            onClick={() => this.chooseDescription(text)}
+          >
+            <div className={this.state.previewDescription == text ? "" : ""}>
+              {text}
+            </div>
+          </li>
+          <div className="divider" />
+        </div>
+      );
     });
   }
 
+  chooseDescription(index) {
+    this.setState({
+      previewDescription: index
+    });
+  }
+
+  renderBoards() {
+    return this.props.board.boards.map((board, i) => {
+      return this.renderBoard(board);
+    });
+  }
+
+  renderBoard(board) {
+    return (
+      <li
+        key={board.id}
+        className="collection-item avatar pin-content"
+        // onClick={() => this.savePin(board.id, board.name)}
+      >
+        {board.img == null ? (
+          <i className="material-icons circle green">folder</i>
+        ) : (
+          <img src={board.img} alt="" className="circle" />
+        )}
+        <div className="col m12">
+          <span className="title">{board.name}</span>
+          <p className="">{board.description}</p>
+          {/* <p className="">
+            Last change{" "}
+            {board.modified
+              ? distanceInWordsToNow(board.modified)
+              : distanceInWordsToNow(board.created)}
+          </p> */}
+        </div>
+      </li>
+    );
+  }
+
+  chooseImage = imageSrc => {
+    this.setState({
+      previewImage: imageSrc
+    });
+  };
+
+  chooseDescription = text => {
+    this.setState({
+        previewDescription: text
+    });
+  };
+
   render() {
+    if (this.state.previewDescription == null && this.props.parse.texts)
+      this.state.previewDescription = this.props.parse.texts[0];
+
+    if (this.state.previewImage == null && this.props.parse.images)
+      this.state.previewImage = this.props.parse.images[0].src;
+
+    if (this.state.previewTitle == null && this.props.parse.title)
+      this.state.previewTitle = this.props.parse.title;
+
     return (
       <div className="parse">
-        {/* {JSON.stringify(this.props.parse)} */}
         <ul className="tabs z-depth-1">
           <li
             className={`tab ${
@@ -140,49 +193,40 @@ class Parse extends Component {
             </div>
           ))}
         <div>
-          {this.state.currentTab == "image" && this.props.parse.images && (
-            <div>
-              <div className="card-content list__title">
-                <h6 className="left-align list__item">Choose image</h6>
-              </div>
-              {JSON.stringify(this.props.parse.images)}
-              <ul>{this.renderImages()}</ul>
-            </div>
-          )}
-          {this.state.currentTab == "image" && this.props.parse.imagesError && (
-            <div className="error--container">
-              <div className="error error--text alert alert-info">
-                {this.props.parse.imagesError}
-              </div>
-            </div>
+          {this.state.currentTab == "image" && (
+            <ImageTab
+              images={this.props.parse.images}
+              error={this.props.parse.imagesError}
+              previewImage={this.state.previewImage}
+              chooseImage={this.chooseImage}
+            />
           )}
           {this.state.currentTab == "description" && this.props.parse.texts && (
-            <div>
-              <div className="card-content list__title">
-                <h6 className="left-align list__item">Choose description</h6>
-              </div>
-              {JSON.stringify(this.props.parse.texts)}
-              {/* <ul>{this.renderImages()}</ul> */}
-            </div>
+            <DescriptionTab
+              texts={this.props.parse.texts}
+              error={this.props.parse.textsError}
+              previewDescription={this.state.previewDescription}
+              chooseDescription={this.chooseDescription}
+            />
           )}
-          {this.state.currentTab == "description" &&
-            this.props.parse.textsError && (
-              <div className="error--container">
-                <div className="error error--text alert alert-info">
-                  {this.props.parse.textsError}
-                </div>
-              </div>
-            )}
+
           {this.state.currentTab == "board" &&
             this.props.board.getAllBoardsError &&
             renderError(this.props.board.getAllBoardsError)}
           {this.state.currentTab == "board" && this.props.board.boards && (
             <div>
               <div className="card-content list__title">
-                <h6 className="left-align list__item">Choose board</h6>
+                <h6 className="left-align list__item">Pin preview</h6>
               </div>
-              {JSON.stringify(this.props.board.boards)}
-              {/* <ul>{this.renderImages()}</ul> */}
+              <PinCard
+                url={this.state.previewImage}
+                title={this.state.previewTitle}
+                description={this.state.previewDescription}
+              />
+              <div className="card-content list__title">
+                <h6 className="left-align list__item">Save to board</h6>
+              </div>
+              <ul>{this.renderBoards()}</ul>
             </div>
           )}
         </div>
