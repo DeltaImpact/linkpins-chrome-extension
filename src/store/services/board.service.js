@@ -1,8 +1,7 @@
-import config from "config";
 // import { authHeader } from "./auth-header";
-import axios from "axios";
 import { parseJSON, processErrorResponse } from "../../utils/misc";
-import { connect } from "react-redux";
+import axios from "axios";
+import config from "config";
 
 export const boardService = {
   getBoards

@@ -10,21 +10,22 @@ class BoardCard extends Component {
     const { board } = this.props;
 
     return (
-        <li
-          key={board.id}
-          className="collection-item avatar pin-content"
-          // onClick={() => this.savePin(board.id, board.name)}
-        >
-          {board.img == null ? (
-            <i className="material-icons circle green">folder</i>
-          ) : (
-            <img src={board.img} alt="" className="circle" />
-          )}
-          <div className="col m12">
-            <span className="title">{board.name}</span>
-            <p>{board.description}</p>
-          </div>
-        </li>
+      <li
+        key={board.id}
+        className="collection-item avatar pin-content"
+        onClick={() => this.props.savePin(board.id, board.name)}
+      >
+        {board.img == null ? (
+          <i className="material-icons circle green">folder</i>
+        ) : (
+          <img src={board.img} alt="" className="circle" />
+        )}
+        {/* {JSON.stringify(board)} */}
+        <div className="col m12">
+          <span className="title">{board.name}</span>
+          <p>{board.description}</p>
+        </div>
+      </li>
     );
   }
 }
