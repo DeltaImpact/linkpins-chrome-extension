@@ -18,3 +18,7 @@
 .parse .tabs .active:hover {
     background-color: rgba(0, 0, 0, 0.2);
 }
+
+.refresh-icon {
+    padding-top: 12px;
+}

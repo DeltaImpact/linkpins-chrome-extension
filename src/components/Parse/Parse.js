@@ -8,6 +8,7 @@ import { BoardCard } from "../BoardCard";
 import { validateEmail, renderError } from "../../utils/misc";
 import { ImageTab } from "./tabs/ImageTab";
 import { DescriptionTab } from "./tabs/DescriptionTab";
+import config from "config";
 
 class Parse extends Component {
   constructor(props) {
@@ -101,7 +102,6 @@ class Parse extends Component {
 
   savePin = (boardId, boardName) => {
     // let asd = this.props.parse.url;
-    debugger;
     this.props.dispatch(
       pinActions.addPin(
         this.state.previewTitle,
@@ -113,15 +113,23 @@ class Parse extends Component {
         this.props.account.user
       )
     );
-  
+
     // alert(boardId, boardName);
-  }
+  };
 
   renderBoards() {
     return this.props.board.boards.map((board, i) => {
       return <BoardCard key={i} board={board} savePin={this.savePin} />;
-      //   return this.renderBoard(board);
     });
+  }
+
+  renderSavedToBoard() {
+    debugger;
+    return this.props.board.boards
+      .filter(board => board.id === this.props.pin.AddPinBoard)
+      .map((board, i) => {
+        return <BoardCard key={i} board={board} />;
+      });
   }
 
   renderBoard(board) {
@@ -162,6 +170,11 @@ class Parse extends Component {
     });
   };
 
+  openPinTab(){
+    var action_url = config.frontEndUrl + "/pin/" + this.props.pin.AddPinBoard;
+    chrome.tabs.create({ url: action_url });
+  }
+
   render() {
     if (this.state.previewDescription == null && this.props.parse.texts)
       this.state.previewDescription = this.props.parse.texts[0];
@@ -200,10 +213,10 @@ class Parse extends Component {
             <div className="black-text">board</div>
           </li>
           <li className="tab" onClick={e => this.reload(e)}>
-            <div className="black-text">
-              <i className="material-icons">refresh</i>
-              reload
-            </div>
+            <span className="black-text">
+              <i className="material-icons refresh-icon">refresh</i>
+              {/* reload */}
+            </span>
           </li>
         </ul>
         {this.props.parse.loadingImages ||
@@ -213,6 +226,7 @@ class Parse extends Component {
             </div>
           ))}
         <div>
+          {/* {JSON.stringify(this.props.pin.AddPinBoard)} */}
           {this.state.currentTab == "image" && (
             <ImageTab
               images={this.props.parse.images}
@@ -252,16 +266,13 @@ class Parse extends Component {
           {this.state.currentTab == "board" &&
             this.props.board.getAllBoardsError &&
             renderError(this.props.board.getAllBoardsError)}
+          {this.state.currentTab == "board" && this.props.pin.AddPinBoard && (
+            <div className="card-content grey lighten-3">
+              <a onClick={e => this.openPinTab()}>Pin</a> saved.
+            </div>
+          )}
           {this.state.currentTab == "board" && this.props.board.boards && (
             <div>
-              {/* <div className="card-content list__title">
-                <h6 className="left-align list__item">Pin preview</h6>
-              </div>
-              <PinCard
-                url={this.state.previewImage}
-                title={this.state.previewTitle}
-                description={this.state.previewDescription}
-              /> */}
               <div className="card-content list__title">
                 <h6 className="left-align list__item">Save to board</h6>
               </div>
@@ -275,16 +286,17 @@ class Parse extends Component {
 }
 
 function mapStateToProps(state) {
-  const { parse, board, account } = state;
+  const { parse, board, account, pin } = state;
   return {
     parse,
     board,
+    pin,
     account
   };
 }
 
 const connectedNavMenuComponent = connect(
-  mapStateToProps,
+  mapStateToProps
   // mapDispatchToProps
 )(Parse);
 export { connectedNavMenuComponent as Parse };
